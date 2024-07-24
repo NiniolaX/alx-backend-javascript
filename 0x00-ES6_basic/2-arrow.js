@@ -1,4 +1,4 @@
-// Modified *original function* to use ES6’s arrow syntax of the function add
+// Modified *INITIAL function* to use ES6’s arrow syntax of the function add
 export default function getNeighborhoodsList() {
   this.sanFranciscoNeighborhoods = ['SOMA', 'Union Square'];
 
@@ -9,7 +9,7 @@ export default function getNeighborhoodsList() {
 }
 
 /*
-ORIGINAL FUNCTION:
+INITIAL FUNCTION:
 
 export default function getNeighborhoodsList() {
   this.sanFranciscoNeighborhoods = ['SOMA', 'Union Square'];

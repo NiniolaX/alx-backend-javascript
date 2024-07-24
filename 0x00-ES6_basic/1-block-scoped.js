@@ -1,6 +1,6 @@
 /*
-Modified variables (all formerly declared with 'var') so they aren't
-overwritten inside the conditional block
+Modified variables (all formerly declared with 'var') in *initial function*
+so they aren't overwritten inside the conditional block
 */
 export default function taskBlock(trueOrFalse) {
   const task = false;
@@ -13,3 +13,19 @@ export default function taskBlock(trueOrFalse) {
 
   return [task, task2];
 }
+
+/*
+INITIAL FUNCTION:
+
+export default function taskBlock(trueOrFalse) {
+  var task = false;
+  var task2 = true;
+
+  if (trueOrFalse) {
+    var task = true;
+    var task2 = false;
+  }
+
+  return [task, task2];
+}
+*/
