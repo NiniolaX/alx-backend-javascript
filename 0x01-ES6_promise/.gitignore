@@ -1,1 +1,7 @@
 test.js
+test2.js
+package.json
+babel.config.js
+utils.js
+.eslintrc.js
+node_modules/
