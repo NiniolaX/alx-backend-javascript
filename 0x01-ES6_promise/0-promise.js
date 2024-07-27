@@ -1,3 +1,4 @@
+// Function returns a promise
 export default function getResponseFromAPI() {
   const promise = new Promise(((resolve, reject) => {
     const userData = true; // Simulate a network request
