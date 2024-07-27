@@ -1,4 +1,4 @@
-// Function takes in a boolean argument and resolves a promise based on argument received
+// Function simulates an API call and returns a promise 
 export default function getFullResponseFromAPI(success) {
   const promise = new Promise((resolve, reject) => {
     if (success) {
