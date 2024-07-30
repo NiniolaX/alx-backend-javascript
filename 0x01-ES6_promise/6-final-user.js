@@ -15,7 +15,7 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
         }
         return result; // Return result for fulfillment as is
       });
-      console.log(modifiedResults);
+      // console.log(modifiedResults); This checks that results is actually modified
       return modifiedResults;
     });
 }
