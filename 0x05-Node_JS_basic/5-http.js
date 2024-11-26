@@ -8,7 +8,8 @@ const port = 1245;
 // Get path to database file
 const databasePath = process.argv[2];
 if (!databasePath) {
-  throw new Error('Cannot load the database');
+  console.error('Cannot load the database');
+  process.exit(1);
 }
 
 function countStudents(path) {
@@ -17,12 +18,11 @@ function countStudents(path) {
       // Splits data into rows
       const rows = data.split('\n').filter((row) => row.trim() !== '');
 
-      // Delete csv header
+      // Remove csv header row
       rows.shift();
 
       // Log number of students in result array
       const result = [`Number of students: ${rows.length}`];
-
       const studentsByField = {};
 
       rows.forEach((row) => {
@@ -47,6 +47,7 @@ function countStudents(path) {
     });
 }
 
+// Create http server
 const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
