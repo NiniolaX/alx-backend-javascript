@@ -1,7 +1,4 @@
-/*
- * Simple STDIN interaction program
- */
-proces = require('process');
+process = require('process');
 
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
@@ -11,6 +8,6 @@ process.stdin.on('data', (input) => {
 });
 
 process.stdin.on('end', () => {
-  process.stdout.write('This important software is now closing\n');
+  process.stdout.write('This important software is now closing');
   process.exit();
 });
