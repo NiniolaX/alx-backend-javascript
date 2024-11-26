@@ -1,5 +1,5 @@
 /*
-  countStudents - Asynchronously logs students in from a database to STDOUT
+  countStudents - Logs students in from a database to STDOUT
   Args:
     - path: Path to database (file)
   Returns:
@@ -8,11 +8,9 @@
 const fs = require('fs');
 
 function countStudents(path) {
-  return fs.readFile(path, 'utf-8', (err, data) => {
-    if (err) {
-        console.log('Cannot load the database');
-        return;
-    }
+  try {
+    const data = fs.readFileSync(path, { encoding: 'utf-8' }).trim();
+
     // Split file into rows and remove empty rows
     const rows = data.split('\n').filter((row) => row.trim() !== '');
 
@@ -42,7 +40,9 @@ function countStudents(path) {
     for (const [field, names] of Object.entries(studentsByField)) {
       console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
     }
-  });
+  } catch (err) {
+    throw Error('Cannot load the database');
+  }
 }
 
 module.exports = countStudents;
