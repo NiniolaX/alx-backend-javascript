@@ -47,13 +47,14 @@ const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    res.statusCode = 200;
     const databasePath = process.argv[2];
     countStudents(databasePath)
       .then((data) => {
+        res.statusCode = 200;
         res.end(['This is the list of our students', ...data].join('\n'));
       })
       .catch((err) => {
+        res.statusCode = 500;
         res.end(err.message);
       });
   }
