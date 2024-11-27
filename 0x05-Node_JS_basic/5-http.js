@@ -2,14 +2,14 @@ const http = require('http');
 const fs = require('fs').promises;
 require('process');
 
-const host = '127.0.0.1';
 const port = 1245;
 
+// Function to count students in /students path
 function countStudents(path) {
   return fs.readFile(path, 'utf-8')
     .then((data) => {
-      // Splits data into rows
-      const rows = data.split('\n').filter((row) => row.trim() !== '');
+      // Splits data into rows and remove empty rows
+      const rows = data.split('\n').filter((row) => row.length > 0);
 
       // Remove csv header row
       rows.shift();
@@ -42,10 +42,12 @@ function countStudents(path) {
 
 // Create http server
 const app = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
+    res.statusCode = 200;
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
+    res.statusCode = 200;
     const databasePath = process.argv[2];
     countStudents(databasePath)
       .then((data) => {
@@ -57,6 +59,6 @@ const app = http.createServer((req, res) => {
   }
 });
 
-app.listen(port, host);
+app.listen(port);
 
 module.exports = app;
