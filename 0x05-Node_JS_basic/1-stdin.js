@@ -1,10 +1,10 @@
-process = require('process');
+require('process');
 
 process.stdout.write('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('data', (input) => {
-  userInput = input.toString().trim();
-  process.stdout.write(`Your name is: ${input}`);
+  const userInput = input.toString().trim();
+  process.stdout.write(`Your name is: ${userInput}\n`);
 });
 
 process.stdin.on('end', () => {
