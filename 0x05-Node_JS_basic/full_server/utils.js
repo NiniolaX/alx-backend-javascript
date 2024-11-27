@@ -1,17 +1,16 @@
-const fs = require('fs').promises;
+import { promises as fs } from 'fs';
 
 function readDatabase(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf-8')
       .then((data) => {
         // Splits data into rows
-        const rows = data.split('\n').filter((row) => row.trim() !== '');
+        const rows = data.split('\n').filter((row) => row.length > 0);
 
         // Remove csv header row
         rows.shift();
 
         // Log number of students in result array
-        const result = [`Number of students: ${rows.length}`];
         const studentsByField = {};
 
         rows.forEach((row) => {
@@ -24,15 +23,10 @@ function readDatabase(path) {
           }
         });
 
-        // Log data from each field into result array
-        for (const [field, names] of Object.entries(studentsByField)) {
-          result.push(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
-        }
-
-        resolve(result);
+        resolve(studentsByField);
       })
       .catch((err) => reject(err));
   });
 }
 
-module.exports = readDatabase;
+export default readDatabase;
