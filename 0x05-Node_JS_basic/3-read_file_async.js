@@ -3,7 +3,7 @@
   Args:
     - path: Path to database (file)
   Returns:
-    Null
+    Dict of arrays: Students by their fields.
 */
 const fs = require('fs').promises;
 
@@ -13,8 +13,7 @@ function countStudents(path) {
       const rows = data.split('\n').filter((row) => row.trim() !== '');
       rows.shift();
 
-      console.log(`Number of students: ${rows.length}`);
-
+      const result = [`Number of students: ${rows.length}`];
       const studentsByField = {};
 
       for (const row of rows) {
@@ -28,8 +27,11 @@ function countStudents(path) {
       }
 
       for (const [field, names] of Object.entries(studentsByField)) {
-        console.log(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
+        result.push(`Number of students in ${field}: ${names.length}. List: ${names.join(', ')}`);
       }
+
+      result.forEach((res) => console.log(res));
+      return result;
     })
     .catch(() => {
       throw new Error('Cannot load the database');
