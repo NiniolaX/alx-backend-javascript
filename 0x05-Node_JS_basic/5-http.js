@@ -5,13 +5,6 @@ require('process');
 const host = '127.0.0.1';
 const port = 1245;
 
-// Get path to database file
-const databasePath = process.argv[2];
-if (!databasePath) {
-  console.error('Cannot load the database');
-  process.exit(1);
-}
-
 function countStudents(path) {
   return fs.readFile(path, 'utf-8')
     .then((data) => {
@@ -49,17 +42,16 @@ function countStudents(path) {
 
 // Create http server
 const app = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
   if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
+    const databasePath = process.argv[2];
     countStudents(databasePath)
       .then((data) => {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(['This is the list of our students', ...data].join('\n'));
       })
       .catch((err) => {
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end(err.message);
       });
   }
