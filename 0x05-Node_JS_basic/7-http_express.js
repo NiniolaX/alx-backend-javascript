@@ -23,9 +23,9 @@ app.get('/students', (req, res) => {
       for (let i = 0; i < data.length; i += 1) {
         if (i === data.length - 1) {
           res.write(data[i]);
-        } else {
-          res.write(`${data[i]}\n`);
+          break;
         }
+        res.write(`${data[i]}\n`);
       }
       res.end();
     })
