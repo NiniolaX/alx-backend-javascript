@@ -1,32 +1,32 @@
-import { promises as fs } from 'fs';
+import fs from 'fs/promises';
 
-function readDatabase(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf-8')
-      .then((data) => {
-        // Splits data into rows
-        const rows = data.split('\n').filter((row) => row.length > 0);
+const readDatabase = async (path) => {
+  try {
+    const data = await fs.readFile(path, 'utf-8');
 
-        // Remove csv header row
-        rows.shift();
+    // Splits data into rows
+    const rows = data.split('\n').filter((row) => row.length > 0);
 
-        // Log number of students in result array
-        const studentsByField = {};
+    // Remove csv header row
+    rows.shift();
 
-        rows.forEach((row) => {
-          const [firstName, lastName, age, field] = row.trim().split(',');
-          if (firstName && lastName && age && field) {
-            if (!studentsByField[field]) {
-              studentsByField[field] = [];
-            }
-            studentsByField[field].push(firstName);
-          }
-        });
+    // Log number of students in result array
+    const studentsByField = {};
 
-        resolve(studentsByField);
-      })
-      .catch((err) => reject(err));
-  });
-}
+    rows.forEach((row) => {
+      const [firstName, lastName, age, field] = row.trim().split(',');
+      if (firstName && lastName && age && field) {
+        if (!studentsByField[field]) {
+          studentsByField[field] = [];
+        }
+        studentsByField[field].push(firstName);
+      }
+    });
+
+    return studentsByField;
+  } catch (error) {
+    throw new Error('Cannot load database');
+  }
+};
 
 export default readDatabase;
