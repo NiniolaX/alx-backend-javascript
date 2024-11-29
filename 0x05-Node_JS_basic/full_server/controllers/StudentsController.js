@@ -10,10 +10,15 @@ class StudentsController {
       let response = 'This is the list of our students\n';
 
       const sortedFields = Object.keys(data).sort();
-      sortedFields.forEach((field) => {
+      sortedFields.forEach((field, index) => {
         const numOfStudents = data[field].length;
         const students = data[field].join(', ');
-        response += `Number of students in ${field}: ${numOfStudents}. List: ${students}\n`;
+        response += `Number of students in ${field}: ${numOfStudents}. List: ${students}`;
+
+        // Add newlines for all lines except last line
+        if (index !== sortedFields.length - 1) {
+          response += '\n';
+        }
       });
 
       res.status(200).send(response);
