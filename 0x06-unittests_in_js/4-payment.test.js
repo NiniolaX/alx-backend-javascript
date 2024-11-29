@@ -5,14 +5,16 @@ const Utils = require('./utils');
 const sendPaymentRequestToApi = require('./4-payment');
 
 describe('sendPaymentRequestToApi', () => {
-  // Stub calculateNumber
+  // Stub the Utils.calculateNumber function
   const calculateNumberStub = sinon.stub(Utils, 'calculateNumber');
+
+  // Set return value for stub
   calculateNumberStub.returns(10);
 
-  // Create spy
+  // Spy on console.log
   const consoleLogSpy = sinon.spy(console, 'log');
 
-  // Call function
+  // Call the function
   sendPaymentRequestToApi(100, 20);
 
   it('always returns 10', () => {
