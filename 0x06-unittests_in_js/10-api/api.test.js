@@ -27,7 +27,7 @@ describe('Express Server Integration tests', () => {
 
     it('should return correct response for integer id', (done) => {
       request('http://localhost:7865/cart/3', (error, response, body) => {
-        expect(body).to.equal('Payment methods for cart :3');
+        expect(body).to.equal('Payment methods for cart 3');
         done();
       });
     });
@@ -39,4 +39,67 @@ describe('Express Server Integration tests', () => {
       });
     });
   });
+
+  describe('POST /login, body "username: John Doe"', () => {
+    let options;
+    before(() => {
+      options = {
+        url: 'http://localhost:7865/login',
+        method: 'POST',
+        json: { username: "John Doe" },
+      };
+    })
+
+    it('should return correct status code ', (done) => {
+      request(options, (error, response, body) => {
+          expect(response.statusCode).to.equal(200);
+          done();
+        }
+      );
+    });
+
+    it('should return correct response', (done) => {
+      request(options, (error, response, body) => {
+        expect(body).to.equal('Welcome John Doe');
+        done();
+      })
+    });
+  });
+
+  describe('GET /available_payments', () => {
+    let options;
+    before(() => {
+      options = {
+        url: 'http://localhost:7865/available_payments',
+        method: 'GET',
+      }
+    });
+    it('should return status code 200', (done) => {
+      request(options, (error, response, body) => {
+        expect(response.statusCode).to.equal(200);
+        done();
+      });
+    });
+
+    it('response body should have payment_methods property', (done) => {
+      request(options, (error, response, body) => {
+        parsedBody = JSON.parse(body);
+        expect(parsedBody).to.have.property('payment_methods');});
+        done();
+    });
+
+    it('payment_methods returned should have credit_card', (done) => {
+      request(options, (error, response, body) => {
+        parsedBody = JSON.parse(body);
+        expect(parsedBody.payment_methods).to.have.property('credit_cards', true);});
+        done();
+    });
+
+    it('payment_methods returned should have paypal', (done) => {
+      request(options, (error, response, body) => {
+        parsedBody = JSON.parse(body);
+        expect(parsedBody.payment_methods).to.have.property('paypal', false);});
+        done();
+    });
+  })
 });
