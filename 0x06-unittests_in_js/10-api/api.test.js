@@ -46,7 +46,7 @@ describe('Express Server Integration tests', () => {
       options = {
         url: 'http://localhost:7865/login',
         method: 'POST',
-        json: { username: "John Doe" },
+        json: { userName: "John Doe" },
       };
     })
 
