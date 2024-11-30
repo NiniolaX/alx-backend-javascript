@@ -27,7 +27,7 @@ describe('Express Server Integration tests', () => {
 
     it('should return correct response for integer id', (done) => {
       request('http://localhost:7865/cart/3', (error, response, body) => {
-        expect(body).to.equal('Payment methods for cart :3');
+        expect(body).to.equal('Payment methods for cart 3');
         done();
       });
     });
