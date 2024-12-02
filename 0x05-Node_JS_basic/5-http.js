@@ -2,7 +2,6 @@ const http = require('http');
 const countStudents = require('./3-read_file_async');
 require('process');
 
-const hostname = '127.0.0.1';
 const port = 1245;
 
 // Create http server
@@ -33,8 +32,8 @@ const app = http.createServer((req, res) => {
 });
 
 // Start the server
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}`);
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
 
 module.exports = app;
